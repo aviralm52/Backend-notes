@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shorten your URL</title>
+    </head>
+    <style>
+        div {
+            font-size: xx-large;
+        }
+        input {
+            padding: 5px;
+        }
+        table{
+            font-size: large;
+            margin-top: 20px;
+        }
+    </style>
+    <body>
+        <h1 style="color: blue; background-color: yellow; font-size: 100px">
+            URL Shortener
+        </h1>
+        <div>
+            <form method="POST", action="/url" >
+                <label for="">Enter your originial URL: </label>
+                <input
+                    type="text"
+                    placeholder="https://example.com"
+                    name="url"
+                />
+                <button type="submit">Generate</button>
+            </form>
+        </div>
+        <% if (locals.ID) { %>
+            <p>Your Shortened URL: <a href=http://localhost:8000/url/<%= locals.ID %> > 
+                <%= `http://localhost:8000/url/${locals.ID}`%>
+                </a>
+            </p>
+        <% } %>
+        <div>
+            <% if (locals.urls) { %>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Serial No.</th>
+                            <th>Short URL</th>
+                            <th>Redirect URL</th>
+                            <th>No. of Clicks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% urls.forEach((url, index) => { %>
+                            <tr>
+                                <td><%= index + 1%></td>
+                                <td><a href="http://localhost:8000/url/<%=url.shortId %>"><%= url.shortId %></a></td>
+                                <td><%=url.redirectURl%></td>
+                                <td><%=url.visitHistory.length%></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } %>
+        </div>
+    </body>
+</html>
