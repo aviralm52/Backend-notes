@@ -3,13 +3,12 @@ const SECRET_TOKEN_KEY = "{Aviral$7704}";
 
 function setUser(user) {
     // sessionIdToUserMap.set(id, user);
-    return jwt.sign(
-        {
-            _id: user._id,
-            email: user.email,
-        },
-        SECRET_TOKEN_KEY
-    );
+    const payload = {
+        _id: user._id,
+        email: user.email,
+    };
+
+    return jwt.sign(payload, SECRET_TOKEN_KEY);
 }
 
 function getUser(token) {
