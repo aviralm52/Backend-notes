@@ -24,11 +24,21 @@ app.get("/", (req, res) => {
 
 io.on("connection", (socket) => {
     console.log("user connected with id: ", socket.id);
-    socket.emit('welcome', `Welcome to server! ${socket.id}`);
-    socket.broadcast.emit('welcome', `${socket.id} joined the server`);
+    // socket.emit('welcome', `Welcome to server! ${socket.id}`);
+    // socket.broadcast.emit('welcome', `${socket.id} joined the server`);
 
-    socket.on('msg', (message) => {
-        console.log(message);
+    socket.on('msg', (data) => {
+        // socket.broadcast.emit('user-message', message);
+        if (data?.room) io.to(data.room).emit('user-message', data);
+        else socket.to(roomName).emit('user-message', data)
+    })
+
+    socket.on('room-name', (roomName) => {
+        const allRooms = Array.from(socket.rooms).filter(room => room !== socket.id);
+        allRooms.forEach(room => socket.leave(room));
+        socket.join(roomName);
+        console.log('room joined: ', roomName);
+        console.log("rooms: ", socket.rooms);
     })
 });
 
