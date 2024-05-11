@@ -1,4 +1,4 @@
-Hello -> server -> server-express -> APIs -> Middlewares -> MongoDB -> MVC -> short-url -> Server_Site_Rendering -> Auth(stateful authenticaion) -> JWT(stateless authentication) -> FileUpload -> Blog
+Hello -> server -> server-express -> APIs -> Middlewares -> MongoDB -> MVC -> short-url -> Server_Site_Rendering -> Auth(stateful authenticaion) -> JWT(stateless authentication) -> FileUpload -> Blog -> WebSocket-6pack -> Clusters
 
 
 ### MVC - Model View Controller
